@@ -4,10 +4,9 @@ import { config } from "dotenv"
 import { DatabaseConnection } from "./data/database"
 import userRoutes from "./routes/user.routes"
 
+const app = express()
 config({ path: ".env" })
 DatabaseConnection()
-const app = express()
-
 app.use(cors())
 app.use(express.json())
 
