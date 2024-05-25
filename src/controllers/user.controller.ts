@@ -32,8 +32,21 @@ export const updateUser = async (req: Request, res: Response) => {
     user.country = country
 
     await user.save()
+    return res.status(200).json({ message: "User Updated" })
   } catch (error) {
     console.log(`Error while update User : ${error}`)
     res.status(500).json({ message: "Error while update user" })
+  }
+}
+
+export const getCurrentUser = async (req: Request, res: Response) => {
+  try {
+    const currentUser = await User.findById(req.userId)
+    if (!currentUser) {
+      return res.status(404).json({ message: "User not found" })
+    }
+  } catch (error) {
+    console.log(`Error while get Current User : ${error}`)
+    return res.status(500).json({ message: `Something went wrong !` })
   }
 }
