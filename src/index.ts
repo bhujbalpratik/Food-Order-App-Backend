@@ -10,6 +10,10 @@ DatabaseConnection()
 app.use(cors())
 app.use(express.json())
 
+app.get("/api", async (req: Request, res: Response) => {
+  res.json({ message: "Api working" })
+})
+
 app.use("/api/user", userRoutes)
 
 app.listen(process.env.PORT, () => {

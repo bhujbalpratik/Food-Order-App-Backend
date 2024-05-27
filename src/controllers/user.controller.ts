@@ -45,6 +45,7 @@ export const getCurrentUser = async (req: Request, res: Response) => {
     if (!currentUser) {
       return res.status(404).json({ message: "User not found" })
     }
+    return res.json(currentUser)
   } catch (error) {
     console.log(`Error while get Current User : ${error}`)
     return res.status(500).json({ message: `Something went wrong !` })
