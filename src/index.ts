@@ -3,10 +3,18 @@ import cors from "cors"
 import { config } from "dotenv"
 import { DatabaseConnection } from "./data/database"
 import userRoutes from "./routes/user.routes"
+import { v2 as cloudinary } from "cloudinary"
+
+DatabaseConnection()
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
 
 const app = express()
 config({ path: ".env" })
-DatabaseConnection()
 app.use(cors())
 app.use(express.json())
 
