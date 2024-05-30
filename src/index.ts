@@ -3,6 +3,7 @@ import cors from "cors"
 import { config } from "dotenv"
 import { DatabaseConnection } from "./data/database"
 import userRoutes from "./routes/user.routes"
+import restaurantRoutes from "./routes/restaurant.routes"
 import { v2 as cloudinary } from "cloudinary"
 
 DatabaseConnection()
@@ -23,6 +24,7 @@ app.get("/api", async (req: Request, res: Response) => {
 })
 
 app.use("/api/user", userRoutes)
+app.use("/api/restaurant", restaurantRoutes)
 
 app.listen(process.env.PORT, () => {
   console.log(`server is working on http://localhost:${process.env.PORT}`)
