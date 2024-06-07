@@ -17,6 +17,7 @@ cloudinary.config({
 const app = express()
 config({ path: ".env" })
 app.use(cors())
+
 app.use(express.json())
 
 app.get("/api", async (req: Request, res: Response) => {
