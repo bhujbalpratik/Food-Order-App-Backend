@@ -43,3 +43,16 @@ const uploadImage = async (file: Express.Multer.File) => {
   console.log(uploadResponse.url)
   return uploadResponse.url
 }
+
+export const getRestaurant = async (req: Request, res: Response) => {
+  try {
+    const restaurant = await Restaurant.findOne({ user: req.userId })
+    if (!restaurant)
+      return res.status(404).json({ message: "Restaurant not found" })
+
+    res.status(200).json(restaurant)
+  } catch (error) {
+    console.log(`Error while get Restaurant : ${error}`)
+    res.status(500).json({ message: "Something went wrong" })
+  }
+}

@@ -1,6 +1,9 @@
 import express from "express"
 import multer from "multer"
-import { createRestaurant } from "../controllers/restaurant.controller"
+import {
+  createRestaurant,
+  getRestaurant,
+} from "../controllers/restaurant.controller"
 import { jwtCheck, jwtParse } from "../middlewares/auth"
 import { validateMyRestaurantRequest } from "../middlewares/validation"
 
@@ -19,5 +22,6 @@ router.post(
   jwtParse,
   createRestaurant
 )
+router.get("/", jwtCheck, jwtParse, getRestaurant)
 
 export default router
