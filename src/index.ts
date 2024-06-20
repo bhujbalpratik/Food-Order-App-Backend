@@ -5,6 +5,7 @@ import { DatabaseConnection } from "./data/database"
 import userRoutes from "./routes/user.routes"
 import myRestaurantRoutes from "./routes/restaurant.routes"
 import { v2 as cloudinary } from "cloudinary"
+import orderRoutes from "./routes/order.routes"
 
 DatabaseConnection()
 
@@ -18,6 +19,8 @@ const app = express()
 config({ path: ".env" })
 app.use(cors())
 
+app.use("/api/order/checkout/webhook", express.raw({ type: "*/*" }))
+
 app.use(express.json())
 
 app.get("/api", async (req: Request, res: Response) => {
@@ -26,6 +29,7 @@ app.get("/api", async (req: Request, res: Response) => {
 
 app.use("/api/user", userRoutes)
 app.use("/api/restaurant", myRestaurantRoutes)
+app.use("/api/order", orderRoutes)
 
 app.listen(process.env.PORT, () => {
   console.log(`server is working on http://localhost:${process.env.PORT}`)

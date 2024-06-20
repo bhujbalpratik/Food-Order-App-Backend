@@ -3,6 +3,7 @@ import multer from "multer"
 import {
   createRestaurant,
   getRestaurant,
+  getRestaurantDetails,
   searchRestaurant,
   updateRestaurant,
 } from "../controllers/restaurant.controller"
@@ -46,4 +47,13 @@ router.get(
   searchRestaurant
 )
 
+router.get(
+  "/:restaurantId",
+  param("restaurantId")
+    .isString()
+    .trim()
+    .notEmpty()
+    .withMessage("RestaurantId parameter must be valid string"),
+  getRestaurantDetails
+)
 export default router

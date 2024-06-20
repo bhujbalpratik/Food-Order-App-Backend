@@ -150,3 +150,20 @@ export const searchRestaurant = async (req: Request, res: Response) => {
     res.status(500).json({ message: `Something went wrong` })
   }
 }
+
+export const getRestaurantDetails = async (req: Request, res: Response) => {
+  try {
+    const { restaurantId } = req.params
+
+    const restaurant = await Restaurant.findById(restaurantId)
+
+    if (!restaurant) {
+      return res.status(404).json({ message: "restaurant not found" })
+    }
+
+    res.json(restaurant)
+  } catch (error) {
+    console.log(`Error while get Restaurant Details api :${error}`)
+    res.status(500).json({ message: `Something went wrong` })
+  }
+}
