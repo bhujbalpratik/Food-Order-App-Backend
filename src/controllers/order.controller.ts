@@ -6,6 +6,20 @@ import { Order } from "../models/order.model"
 const STRIPE = new Stripe(process.env.STRIPE_API_KEY as string)
 const FRONTEND_URL = process.env.FRONTEND_URL as string
 
+
+export const getMyOrders = async (req: Request, res: Response) => {
+  try {
+    const orders = await Order.find({ user: req.userId })
+      .populate("restaurant")
+      .populate("user")
+
+    res.json(orders)
+  } catch (error) {
+    console.log(`Error while get orders :`, error)
+    res.status(500).json({ message: "Something went wrong" })
+  }
+}
+
 type CheckoutSessionRequest = {
   cartItems: {
     menuItemId: string

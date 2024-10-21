@@ -4,7 +4,9 @@ import {
   createRestaurant,
   getRestaurant,
   getRestaurantDetails,
+  getRestaurantOrders,
   searchRestaurant,
+  updateOrderStatus,
   updateRestaurant,
 } from "../controllers/restaurant.controller"
 import { jwtCheck, jwtParse } from "../middlewares/auth"
@@ -47,6 +49,9 @@ router.get(
   searchRestaurant
 )
 
+router.get("/orders", jwtCheck, jwtParse, getRestaurantOrders)
+router.patch("/order/:orderId/status", jwtCheck, jwtParse, updateOrderStatus)
+
 router.get(
   "/:restaurantId",
   param("restaurantId")
@@ -56,4 +61,5 @@ router.get(
     .withMessage("RestaurantId parameter must be valid string"),
   getRestaurantDetails
 )
+
 export default router
